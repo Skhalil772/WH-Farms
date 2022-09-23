@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { FaShoppingCart, FaUserPlus, FaBars, FaTimes } from "react-icons/fa";
 
 function Navbar() {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   const { logout } = useAuth0();
 
   const { Open, SetOpen, total_item } = useDataContext();
@@ -38,18 +38,21 @@ function Navbar() {
               {total_item}
             </span>
           </Link>
-          <button
-            onClick={() => loginWithRedirect()}
-            className="px-3 text-center flex space-x-2 m-2 rounded-md h-fit  bg-black text-white py-1"
-          >
-            <span>Login</span> <FaUserPlus className="" size={20} />
-          </button>
-          {/* <button
-            onClick={() => logout({ returnTo: window.location.origin })}
-            className="px-3 text-center flex space-x-2 m-2 rounded-md h-fit  bg-black text-white py-1"
-          >
-            <span>LogOut</span> <FaUserPlus className="" size={20} />
-          </button> */}
+          {isAuthenticated ? (
+            <button
+              onClick={() => logout({ returnTo: window.location.origin })}
+              className="px-3 text-center flex space-x-2 m-2 rounded-md h-fit  bg-black text-white py-1"
+            >
+              <span>Log Out</span> <FaUserPlus className="" size={20} />
+            </button>
+          ) : (
+            <button
+              onClick={() => loginWithRedirect()}
+              className="px-3 text-center flex space-x-2 m-2 rounded-md h-fit  bg-black text-white py-1"
+            >
+              <span>Login</span> <FaUserPlus className="" size={20} />
+            </button>
+          )}
         </div>
         <button className="sm:hidden block outline-none" onClick={Set}>
           {Open ? <FaTimes size={20} /> : <FaBars size={20} />}

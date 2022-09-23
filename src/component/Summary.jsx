@@ -1,10 +1,11 @@
 import { useDataContext } from "../context/DataContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 function Summary() {
   const { total_amount } = useDataContext();
   const Total = total_amount + total_amount * 0.1;
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   return (
     <section className="justify-end">
@@ -24,12 +25,22 @@ function Summary() {
             <span>₦{Total}</span>
           </div>
         </div>
-        <button
-          onClick={() => loginWithRedirect()}
-          className="px-3 text-right flex space-x-2 m-2 rounded-md w-fit  bg-[#05445E] text-white py-1"
-        >
-          Login
-        </button>
+
+        {isAuthenticated ? (
+          <Link
+            to="/Checkout"
+            className="px-3 text-right flex space-x-2 m-2 rounded-md w-fit  bg-[#05445E] text-white py-1"
+          >
+            Proceed to Checkout
+          </Link>
+        ) : (
+          <button
+            onClick={() => loginWithRedirect()}
+            className="px-3 text-right flex space-x-2 m-2 rounded-md w-fit  bg-[#05445E] text-white py-1"
+          >
+            Proceed to Checkout
+          </button>
+        )}
       </div>
     </section>
   );

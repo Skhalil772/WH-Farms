@@ -4,6 +4,7 @@ import Cart from "./component/Cart";
 import Home from "./component/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SingleProduct from "./component/SingleProduct";
+import Checkout from "./component/Checkout";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
         {/* <Route path="/SingleProduct" element={<SingleProduct />}></Route> */}
 
         <Route path="/Products/:Productid" element={<SingleProduct />} />
+        <Route path="/CheckOut" element={<Checkout />}></Route>
       </Routes>
     </BrowserRouter>
   );
